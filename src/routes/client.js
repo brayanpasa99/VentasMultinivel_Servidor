@@ -29,12 +29,12 @@ router.post("/createClient", async (req, res) => {
         "TEMPORARY TABLESPACE PROY_TEMP " +
         "QUOTA 4M ON PROY_DEF " +
         "PASSWORD EXPIRE";
-
+s
     result = await BD.Open(sql, [], true, cns);
 
     console.log(result);
 
-    sql = "GRANT consultor TO " + nombreUser;
+    sql = "EXECUTE IMMEDIATE 'GRANT consultor TO " + nombreUser;
 
     result = await BD.Open(sql, [], false, cns);
 
