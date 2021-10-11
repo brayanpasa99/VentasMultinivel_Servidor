@@ -7,11 +7,22 @@ const oracledb = require('oracledb');
 }*/
 
 
-async function Open(sql, binds, autoCommit, cns) {
-    let cnn = await oracledb.getConnection(cns);
-    let result = await cnn.execute(sql, binds, { autoCommit });
-    cnn.release();
+async function Open(credentials) {
+    let connection = await oracledb.getConnection(credentials);
+    return connection;
+}
+
+async function Close(connection) {
+    connection.release();
+}
+
+async function Sentence(sql, binds, autoCommit, connection) {
+    let result = await connection.execute(sql, binds, {
+        autoCommit
+    });
     return result;
 }
 
 exports.Open = Open;
+exports.Close = Close;
+exports.Sentence = Sentence;
